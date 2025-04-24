@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Code Editor</title>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/x-icon" href="Tryit Editor.ico">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="editor">
+      <h1>Code Editor</h1>
+      <p>This is my very own code editor made with HTML, CSS & JavaScript. Try it out!</p>
+      <div class="line-numbers" id="lineNumbers"></div>
+      <textarea id="myTextarea" spellcheck="false" placeholder="Type your code here..." title="Type your code in this box and then press the button!" oninput="updateLineNumbers()"><!-- Type your code here!! --></textarea>
+      <button class="button" title="Click me to put your code in your webpage!" type="button" onclick="updateIframe(); myFunction()">Run Code</button>
+    </div>
+    <div class="preview">
+      <iframe id="myframe"></iframe>
+    </div>
+  </div>
+  <div id="snackbar">Code displayed in iframe. <span>&rarr;</span></div>
+  <script type="text/javascript">
+    
+    function updateIframe() {
+      var iframe = document.getElementById('myframe');
+      var textareaValue = document.getElementById('myTextarea').value;
+      var htmlContent = `${textareaValue}`;
+      iframe.srcdoc = htmlContent;
+    }
+
+    function myFunction() {
+      var x = document.getElementById("snackbar");
+      x.className = "show";
+      setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    }
+
+    function updateLineNumbers() {
+      var textarea = document.getElementById('myTextarea');
+      var lineNumbers = document.getElementById('lineNumbers');
+      var lines = textarea.value.split('\n').length;
+      lineNumbers.innerHTML = '';
+      for (var i = 1; i <= lines; i++) {
+        var lineNumber = document.createElement('div');
+        lineNumber.textContent = i;
+        lineNumbers.appendChild(lineNumber);
+      }
+    }
+    window.onload = updateLineNumbers;
+  </script>
+  
+</body>
+</html>
